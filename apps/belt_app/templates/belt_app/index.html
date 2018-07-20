@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <title>Home</title>
+    <style>
+    h5, #header{
+        display:inline-block;
+    }
+    a, form{
+        display:inline-block;
+    }
+
+    #header{
+        margin-left:35%;
+        margin-right:2%;
+    }
+    .left, .right{
+        display:inline-block;
+        vertical-align:top;
+        margin-top:20px;
+    }
+    .right{
+        margin-right:10%;
+        width:25%;
+
+    }
+    .left{
+        margin-left:10%;
+        width:35%;
+        margin-right:15%
+    }
+
+    .right h2{
+        width:300px;
+    }
+    .right p{
+        display:inline-block;
+    }
+    .right input{
+        display:inline-block;
+    }
+    #submit{
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
+        width:50%;
+    }
+    .quotebox{
+        outline:2px solid black;
+        height:200px;
+        margin-top:10px;
+        padding:0px;
+        margin-bottom:10px;
+    }
+    #poster{
+        width:80%;
+        margin-left:auto;
+        margin-right:auto;
+        margin-top:10%;
+    }
+    #quote, #poster{
+        margin-left:10px;
+    }
+    #quote{
+        margin-top:5px;
+    }
+    #quoteheader{
+        margin-left:auto;
+        margin-right:auto;
+        width:50%;
+    }
+    .message{
+        color:red;
+    }
+    #delete{
+        margin-left:10px;
+        margin-top:0px;
+        display:block;
+    }
+    #likecount, #likesubmit{
+        display:inline-block;
+        margin-left:10px;
+    }
+    ul{
+        width:90%;
+        text-align:left;
+        padding:0px;
+    }
+    li{
+        margin-top:5px;
+        margin-bottom:15px;
+    }
+        </style>
+</head>
+<body>
+    <div>
+    <h5>Welcome {{user.first_name}} {{user.last_name}}!</h5>
+    <div id="header">
+        <a href="/edit">Edit My Account</a>
+        <form action="/logout/{{user.id}}">
+            <input type="submit" value="Logout">
+        </form>
+    </div>
+    </div>
+    <div class="content">
+        <div class="left">
+            <h2 id="quoteheader">Quotes</h2>
+            {% for quote in quotes%}
+            <div class="quotebox">
+                <p id="quote">{{quote.author}}: "{{quote.content}}" </p>
+                <p id="poster">Posted by 
+                    <a href="/user/{{quote.uploader.id}}">{{quote.uploader.first_name}} {{quote.uploader.last_name}}</a>
+                </p>
+                <p id="likecount">{{quote.likes.count}} people like this</p>
+                <form action="/add_like/{{quote.id}}" method="POST">
+                    {% csrf_token %}
+                <input id="likesubmit"type="submit" value="Like!">
+                </form>
+                {% if quote.uploader.id == request.session.user_id %}
+            
+                <a id="delete" href ="/delete/{{quote.id}}">Delete </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="right">
+            <h2>Add a Quote!</h2>
+        <div>
+                <form action="/create" method="POST">
+                    {% csrf_token %}
+            <p> Author </p>
+            <input type="text" name="author">
+        </div>
+            <p>Quote</p>
+            <input type="text" name="content">
+            <input id="submit"type="submit">
+                </form>
+{% if messages %}
+    <ul style="list-style-type:none">
+        {% for message in messages %}
+        <li class= "message"> {{message}} </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+        </div>
+    </div>
+</body>
+</html>

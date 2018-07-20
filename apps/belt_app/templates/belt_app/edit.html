@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <title>Edit</title>
+    <style>
+        p,
+        input {
+            display: inline-block;
+        }
+
+        h3,
+        #rightheader {
+            display: inline-block;
+        }
+
+        #rightheader a,
+        form {
+            display: inline-block;
+            font-size: 20px;
+        }
+
+        #rightheader {
+            margin-left: 50%;
+        }
+
+        #content {
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+            text-align:center;
+            font-size:20px;
+        }
+        .forminput{
+            height:25px;
+            width:200px;
+            font-size:18px;
+        }
+        .message{
+            color:red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div>
+        <h3>Edit My Account</h3>
+        <div id="rightheader">
+            <a href='/quotes'>Back</a>
+            <form action="/logout/{{user.id}}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Logout">
+            </form>
+        </div>
+    </div>
+
+    <form id="content" action="/update" method="POST">
+        {% csrf_token %}
+    <div >
+        <div>
+            <p>First Name</p>
+            <input class="forminput" type="text" name="first_name"value={{user.first_name}}>
+        </div>
+        <div>
+            <p>Last Name</p>
+            <input class="forminput" type="text" name="last_name"value={{user.last_name}}>
+        </div>
+        <div>
+            <p>Email</p>
+            <input class="forminput" type="email" name="email"value={{user.email}}>
+        </div>
+        <input class="forminput" type="submit" value="update">
+    </div>
+    </form>
+    {% if messages %}
+    <ul style="list-style-type:none">
+        {% for message in messages %}
+        <li class= "message"> {{message}} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+
+</html>

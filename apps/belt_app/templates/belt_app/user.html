@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <title>User Page</title>
+    <style>
+        #top{
+            margin-top:20px;
+        }
+        h3,
+        #rightheader {
+            display: inline-block;
+        }
+
+        #rightheader a,
+        form {
+            display: inline-block;
+            font-size: 15px;
+        }
+
+        #rightheader {
+            margin-left: 50%;
+        }
+        h3{
+            margin-left:10px;
+        }
+
+        .quotebox{
+            outline:2px solid black;
+            width:300px;
+            margin-top:15px;
+            margin-left:10%;
+        }
+
+        .quotebox p{
+            margin-left:10px;
+            padding-top:15px;
+            padding-bottom:30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="top">
+        <h3>{{user.first_name}} {{user.last_name}}'s Quotes</h3>
+        <div id="rightheader">
+            <a href='/quotes'>Back</a>
+            <form action="/logout" method="POST">
+                <input type="submit" value="Logout">
+            </form>
+        </div>
+    </div>
+
+    {% for quote in quotes%}
+    <div class="quotebox">
+        <p>{{quote.author}}: "{{quote.content}}"</p>
+    </div>
+    {% endfor %}
+</body>
+
+</html>
