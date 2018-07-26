@@ -20,4 +20,6 @@ Implemented all features:
 - Logout feature
 - Deployed
 
+Deployment link: http://18.222.146.114/
+
 Earned Black Belt
