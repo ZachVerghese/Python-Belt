@@ -17,6 +17,7 @@ Implemented all features:
     -user cannot change personal information to be invalid registration parameters
     -user cannot change email to email already in database, unless keeping email the same
 - User is able to like posts once and only once
+- User is able to delete the posts they uploaded
 - Logout feature
 - Deployed
 
