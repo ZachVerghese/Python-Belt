@@ -23,4 +23,5 @@ Implemented all features:
 
 Deployment link: http://18.222.146.114/
 (UPDATE: Deployment Instance Terminated Due to Excessive Data Usage)
+
 Earned Black Belt
